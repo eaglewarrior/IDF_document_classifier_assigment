@@ -16,5 +16,8 @@ def convert_pdf_toexcel(dir_path, file_list):
                content_text = pageObj.extractText()
                content_data += content_text
        file_content.append(content_data)
-    #Exporting to excel
-    pd.DataFrame(file_content).to_excel("train.xlsx")  
+  #Exporting to excel
+  ret_df = pd.DataFrame()
+  ret_df['filename']= files_list
+  ret_df['content']= file_content
+  ret_df.to_excel("train.xlsx")  
