@@ -31,9 +31,19 @@ def get_cosine(vec1, vec2):
 count_vectorizer = CountVectorizer(strip_accents='ascii',lowercase=True, analyzer='word', max_df=0.25, min_df=0.05, ngram_range=(2, 2))
 
 def get_form_or_not(df, col):
-  X_train_cv = count_vectorizer.fit_transform(df['col'])
-  X_train_cv = X_train_cv.toarray()
-  X_train_cv['filename']=df['filename']
-  ref = X_train_cv[X_train_cv.filename=='
+    X_train_cv = count_vectorizer.fit_transform(df['col'])
+    X_train_cv = X_train_cv.toarray()
+    X_train_cv['filename']=df['filename']
+    ref = X_train_cv[X_train_cv.filename=='00049397 (1).pdf'].iloc[:,:-1]
+    result =[]
+    for f in  X_train_cv['filename']:
+        result.append(get_cosine(ref, X_train_cv[X_train_cv.filename==f].iloc[:,:-1]))
+
+    result_df =pd.DataFrame()
+    result_df['filename']= X_train_cv['filename']
+    result_df['score']= result
+    result_df['classifier class']=['Form' if s >0.7 else 'Others' for s in result_df['score']]
+    return result_df
+        
   
   
