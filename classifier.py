@@ -65,10 +65,15 @@ def get_form_or_not(df, col):
     result_df['result_formd']= result_formd
     result_df['result_X17as']= result_X17as
     result_df['result_TA2']= result_TA2
-    
+    class_dict ={0:'form 13F', 1:'82 SFC', 2:'11K',3:'form D',4:'X 17 AS', 5:'TA 2'}
     classifier_list=[]
     for i in range(result_df.shape[0]):
-        if 
+        li = result_df.iloc[i, 1:].values.tolist()
+        max_val = max(li)
+        if max_val >0.7:
+            classifier_list.append(class_dict[li.index(max_val))
+        else:
+            classifier_list.append('Others')
     result_df['classifier class'] = classifier_list
     #result_df['classifier class']=['Form' if s >0.7 else 'Others' for s in result_df['score']]
     return result_df
