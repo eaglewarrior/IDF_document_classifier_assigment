@@ -34,15 +34,43 @@ def get_form_or_not(df, col):
     X_train_cv = count_vectorizer.fit_transform(df['col'])
     X_train_cv = X_train_cv.toarray()
     X_train_cv['filename']=df['filename']
-    ref = X_train_cv[X_train_cv.filename=='00049397 (1).pdf'].iloc[:,:-1]
-    result =[]
+    ref_formd = X_train_cv[X_train_cv.filename=='00049397 (1).pdf'].iloc[:,:-1]
+    ref_13F = X_train_cv[X_train_cv.filename=='01071683.pdf'].iloc[:,:-1]
+    ref_82sfc = X_train_cv[X_train_cv.filename=='01074959.pdf'].iloc[:,:-1]
+    ref_11k = X_train_cv[X_train_cv.filename=='01066872.pdf'].iloc[:,:-1]
+    ref_X17as = X_train_cv[X_train_cv.filename=='01031026.pdf'].iloc[:,:-1]
+    ref_TA2 = X_train_cv[X_train_cv.filename=='01029504.pdf'].iloc[:,:-1]
+    
+    result_13f =[]
+    result_82sfc =[]
+    result_11k =[]
+    result_formd =[]
+    result_X17as =[]
+    result_TA2 =[]
     for f in  X_train_cv['filename']:
-        result.append(get_cosine(ref, X_train_cv[X_train_cv.filename==f].iloc[:,:-1]))
+        result_13f.append(get_cosine(ref_13F, X_train_cv[X_train_cv.filename==f].iloc[:,:-1]))
+        result_82sfc.append(get_cosine(ref_82sfc, X_train_cv[X_train_cv.filename==f].iloc[:,:-1]))
+        result_11k.append(get_cosine(ref_11k, X_train_cv[X_train_cv.filename==f].iloc[:,:-1]))
+        result_formd.append(get_cosine(ref_formd, X_train_cv[X_train_cv.filename==f].iloc[:,:-1]))
+        result_X17as.append(get_cosine(ref_X17as, X_train_cv[X_train_cv.filename==f].iloc[:,:-1]))
+        result_TA2.append(get_cosine(ref_TA2, X_train_cv[X_train_cv.filename==f].iloc[:,:-1]))
+        
+        
 
     result_df =pd.DataFrame()
     result_df['filename']= X_train_cv['filename']
-    result_df['score']= result
-    result_df['classifier class']=['Form' if s >0.7 else 'Others' for s in result_df['score']]
+    result_df['score13f']= result_13f
+    result_df['result_82sfc']= result_82sfc
+    result_df['result_11k']= result_11k
+    result_df['result_formd']= result_formd
+    result_df['result_X17as']= result_X17as
+    result_df['result_TA2']= result_TA2
+    
+    classifier_list=[]
+    for i in range(result_df.shape[0]):
+        if 
+    result_df['classifier class'] = classifier_list
+    #result_df['classifier class']=['Form' if s >0.7 else 'Others' for s in result_df['score']]
     return result_df
         
   
