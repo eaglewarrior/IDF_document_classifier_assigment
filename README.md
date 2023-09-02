@@ -7,7 +7,7 @@ Steps to use the code :
 1) Convert pdf to excel file using convert_pdf_to_text.py using convert_pdf_toexcel(dir_path, file_list) function returns excel file
 2) Clean the extracted txt using clean_text.py using clean_text(text_data_df, col)
 3) Classify using cosine similarity metrics classifier.py using get_form_or_not(df, col), it returns df with filename, score, and class output.0.7 is used as the threshold as it gives the best accuracy
-4) It compares the score with six form types finds the max score and assigns the class, if the score is less than 0.7 then it assigns others as class
+4) It compares the score with six form types finds the max score and assigns the class, and  the classes are{0:'form 13F', 1:'82 SFC', 2:'11K',3:'form D',4:'X 17 AS', 5:'TA 2'}, if the score is less than 0.7 then it assigns others as class
 
 Improvements :
 
